@@ -1,4 +1,8 @@
 h1 userlist page
+form(action="/user/search" method="GET")
+    input(type="text" name="q" value=query)
+    input(type="Submit" value="Tìm kiếm")
+
 ul
     each user in users
         li=user.name

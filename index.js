@@ -16,15 +16,30 @@ app.get("/",(req, res)=>
         name:"abc"
     })
 });
+const users = 
+        [
+            {id:1, name:"Hưng tôn"},
+            {id:2, name:"tôn thất hưng"}
+        ];
 
 app.get("/user",(req, res)=>
 {
     res.render('users/index',
     {
-        users:
-        [
-            {id:1, name:"Hưng tôn"},
-            {id:2, name:"tôn thất hưng"}
-        ]
+        users:users
     })
+});
+
+app.get("/user/search",(req,res)=>
+{
+    const q = req.query.q;
+    const matchedUsers = users.filter(user=>
+        {
+            return user.name.toLowerCase().indexOf(q.toLowerCase()) !==-1;
+        });
+    res.render('users/index',
+        {
+            users:matchedUsers,
+            query:q
+        })
 });
