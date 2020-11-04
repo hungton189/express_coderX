@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const low = require('lowdb');
+const shortid = require("shortid");
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
@@ -38,6 +39,16 @@ app.get("/user",(req, res)=>
     })
 });
 
+app.get('/users/:id',(req, res)=>
+{
+    const id=req.params.id;
+    const user = db.get("users").find({id:id}).value();
+    res.render('users/view',
+    {
+        name:user.name
+    });
+});
+
 app.get("/user/search",(req,res)=>
 {
     const q = req.query.q;
@@ -60,6 +71,8 @@ app.get('/user/create',(req,res)=>
 
 app.post('/user/create',(req,res)=>
 {
+    const id = shortid.generate();
+    req.body.id = id;
     db.get("users").push(req.body).write();
     res.redirect('/user');
 });
