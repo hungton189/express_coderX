@@ -1,6 +1,16 @@
 const express = require("express");
 const app = express();
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+const adapter = new FileSync('db.json');
+const db = low(adapter);
+
+db.defaults({ users:[]})
+  .write()
+
 const port = 3000;
+
+
 
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -19,23 +29,19 @@ app.get("/",(req, res)=>
         name:"abc"
     })
 });
-const users = 
-        [
-            {id:1, name:"Hưng tôn"},
-            {id:2, name:"tôn thất hưng"}
-        ];
 
 app.get("/user",(req, res)=>
 {
     res.render('users/index',
     {
-        users:users
+        users:db.get("users").value()
     })
 });
 
 app.get("/user/search",(req,res)=>
 {
     const q = req.query.q;
+    const users = db.get("users").value();
     const matchedUsers = users.filter(user=>
         {
             return user.name.toLowerCase().indexOf(q.toLowerCase()) !==-1;
@@ -54,6 +60,6 @@ app.get('/user/create',(req,res)=>
 
 app.post('/user/create',(req,res)=>
 {
-    users.push(req.body);
+    db.get("users").push(req.body).write();
     res.redirect('/user');
 });
