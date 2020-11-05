@@ -1,5 +1,8 @@
-h1 Create new user
-form(action="/user/create" method="POST")
-    label Name:
-    input(type="text" name="name")
-    input(type="Submit" value="Create")
+extends ../layouts/comon
+
+block content
+    h1 Create new user
+    form(action="/user/create" method="POST")
+        label Name:
+        input(type="text" name="name")
+        input(type="Submit" value="Create")

@@ -1,11 +1,14 @@
-h1 userlist page
-a(href="/user/create") Thêm mới
-form(action="/user/search" method="GET")
-    input(type="text" name="q" value=query)
-    input(type="Submit" value="Tìm kiếm")
+extends ../layouts/comon
 
-ul
-    each user in users
-        span=user.name
-        a(href="/user/"+user.id) view
-        br
+block content
+    h1 userlist page
+    a(href="/user/create") Thêm mới
+    form(action="/user/search" method="GET")
+        input(type="text" name="q" value=query)
+        input(type="Submit" value="Tìm kiếm")
+
+    ul
+        each user in users
+            span=user.name
+            a(href="/user/"+user.id) view
+            br
