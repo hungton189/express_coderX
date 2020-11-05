@@ -39,15 +39,6 @@ app.get("/user",(req, res)=>
     })
 });
 
-app.get('/users/:id',(req, res)=>
-{
-    const id=req.params.id;
-    const user = db.get("users").find({id:id}).value();
-    res.render('users/view',
-    {
-        name:user.name
-    });
-});
 
 app.get("/user/search",(req,res)=>
 {
@@ -75,4 +66,14 @@ app.post('/user/create',(req,res)=>
     req.body.id = id;
     db.get("users").push(req.body).write();
     res.redirect('/user');
+});
+
+app.get('/user/:id',(req, res)=>
+{
+    const id=req.params.id;
+    const user = db.get("users").find({id:id}).value();
+    res.render('users/view',
+    {
+        name:user.name
+    });
 });
