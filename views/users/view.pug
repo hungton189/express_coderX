@@ -1,7 +1,10 @@
 extends ../layouts/comon
 
 block content
-    h1 view page
-    p
-        b Name:
-        span=name
+    table
+        tr
+            th Name
+            th phone
+        tr
+            td=user.name
+            td=user.phone
