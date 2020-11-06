@@ -24,11 +24,6 @@ module.exports.search = (req,res)=>
         })
 }
 
-module.exports.create = (req,res)=>
-{
-    res.render('users/createUser');
-}
-
 module.exports.viewUser = (req, res)=>
 {
     const id=req.params.id;
@@ -38,6 +33,12 @@ module.exports.viewUser = (req, res)=>
         name:user.name
     });
 }
+
+module.exports.create = (req,res)=>
+{
+    res.render('users/createUser');
+}
+
 
 module.exports.postCreate = (req,res)=>
 {
