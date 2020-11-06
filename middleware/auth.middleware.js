@@ -1,4 +1,5 @@
 var db = require("../db");
+var md5 = require("md5");
 
 module.exports.authRequire = (req, res, next)=>
 {
@@ -7,10 +8,18 @@ module.exports.authRequire = (req, res, next)=>
     {
         res.render("auth/login");
     }
-    const user = db.get("users").find({id:userId}).value();
-    if(!user)
+    const users = db.get("admin").value();
+    for(user of users)
     {
-        res.render("auth/login");
+        console.log("ccheck");
+        console.log(md5(user.id));
+        console.log(userId);
+        if(md5(user.id) === userId)
+        {
+            next();
+            console.log("có");
+            return;
+        }
     }
-    next();
+    res.render("auth/login");
 }
