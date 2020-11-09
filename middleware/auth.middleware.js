@@ -3,23 +3,18 @@ var md5 = require("md5");
 
 module.exports.authRequire = (req, res, next)=>
 {
-    const userId = req.cookies.userId;
+    const userId = req.signedCookies.userId;
     if(!userId)
     {
         res.render("auth/login");
+        return;
     }
-    const users = db.get("admin").value();
-    for(user of users)
+    const user = db.get("admin").find({id:userId}).value();
+    if(!user)
     {
-        console.log("ccheck");
-        console.log(md5(user.id));
-        console.log(userId);
-        if(md5(user.id) === userId)
-        {
-            next();
-            console.log("có");
-            return;
-        }
+        res.render("auth/login");
+        return;
     }
-    res.render("auth/login");
+    res.locals.user = user;
+    next();
 }

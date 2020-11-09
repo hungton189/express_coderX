@@ -15,8 +15,6 @@ html
                         span.sr-only (current)
                     li.nav-item
                         a.nav-link(href='/user') Users
-                form.form-inline.my-2.my-lg-0(action="/user/search" method="GET")
-                    input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search' name="q")
-                    button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+                p=user? user.name:""
         .container.pt-5
             block content
