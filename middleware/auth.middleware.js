@@ -9,12 +9,12 @@ module.exports.authRequire = (req, res, next)=>
         res.render("auth/login");
         return;
     }
-    const user = db.get("admin").find({id:userId}).value();
-    if(!user)
+    const admin = db.get("admin").find({id:userId}).value();
+    if(!admin)
     {
         res.render("auth/login");
         return;
     }
-    res.locals.user = user;
+    res.locals.admin = admin;
     next();
 }

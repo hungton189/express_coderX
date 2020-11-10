@@ -3,7 +3,7 @@ extends ../layouts/comon
 block content
     p products
     .d-flex.align-items-center
-        form.ml-auto(action="/user/search" method="GET")
+        form.ml-auto(action="/products/search" method="GET")
             input(type="text" name="q" value=query)
             input.ml-4.btn-info(type="Submit" value="Tìm kiếm")
     .row
